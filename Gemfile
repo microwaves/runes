@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "elasticsearch"
+gem "rubberband"
 
 group :development do
   gem "bundler", "~> 1.0.0"
