@@ -2,11 +2,9 @@ require 'rubygems'
 require 'test/unit'
 require 'active_support'
 require 'active_record'
-require 'logger'
-require 'yaml'
 
 def setup_db
-  ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+  ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
 
   ActiveRecord::Schema.define(:version => 0) do
     create_table :products, :force => true do |t|
