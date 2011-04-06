@@ -1,15 +1,25 @@
-require 'rubberband'
+require 'rails'
 
-require File.dirname(__FILE__) + '/runes/railtie'
-require File.dirname(__FILE__) + '/runes/core'
+module Runes
+  require 'rubberband'
+  require 'lib/runes/railtie' if defined?(Rails)
+  require 'lib/runes/base'
+  require 'lib/runes/orm/active_record'
 
-ActiveRecord::Base.extend Runes
+  begin
+    config_path = Rails.root.to_s + '/config/runes.yml'
+    config = YAML.load_file(config_path)
+  rescue NameError
+    config = nil
+  end
 
-begin
-  config_path = Rails.root.to_s + '/config/runes.yml'
-  config = YAML.load_file(config_path)
-rescue
-  config = nil
+  $es_client = config.nil? ? ElasticSearch.new('127.0.0.1:9200') : ElasticSearch.new(config['host'], :timeout => 10)
+
+  module Plumber
+    def self.setup!
+      @actors.each do |actor|
+        $es_client.create_index(actor)
+      end
+    end
+  end
 end
-
-$es_client = config.nil? ? ElasticSearch.new('127.0.0.1:9200') : ElasticSearch.new(config['host'], :timeout => 10)

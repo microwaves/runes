@@ -1,8 +1,7 @@
 module Runes
-  def acts_as_indexable
-  end
-
-  def delete_index(index_name)
-
+  module Core
+    def create_index(model_name, create_options={})
+      $es_client.create_index(model_name, create_options)
+    end
   end
 end

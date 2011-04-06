@@ -3,14 +3,15 @@ require 'rails'
 
 module Runes
   class Railtie < Rails::Railtie
-    initializer "runes.initialize" do |app|
-      ActiveSupport.on_load(:active_record) do
-        ActiveRecord::Base.send :extend, Runes
-      end
+    # Extends the module into active_record on app initialization.
+    initializer "runes.extend.active_record" do
+      ActiveRecord.extend(Runes::Orm::ActiveRecord)
     end
-    
-    rake_tasks do
-      load 'tasks/runes.rake'
+
+    # Verify and setup the actors defined by the user.
+    config.to_prepare do
+      Runes::Plumber.setup!
     end
+
   end
 end
