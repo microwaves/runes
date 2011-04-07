@@ -1,0 +1,7 @@
+h1. Runes
+
+Runes is a Railtie to index your models using the modern Elasticsearch as backend, which have possibilities ranging from a simple single-node index manipulation to a highly populated cluster.
+
+h2. Author
+
+Stephano Zanzin :: me@zan.st :: zanst @ Freenode
