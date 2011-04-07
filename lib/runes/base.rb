@@ -4,5 +4,9 @@ module Runes
       @actors ||= []
       @actors << model
     end
+
+    def self.get_actors
+      @actors
+    end
   end
 end

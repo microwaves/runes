@@ -17,7 +17,8 @@ module Runes
 
   module Plumber
     def self.setup!
-      @actors.each do |actor|
+      @actors_to_index = Runes::Base.get_actors
+      @actors_to_index.each do |actor|
         $es_client.create_index(actor)
       end
     end
