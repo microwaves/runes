@@ -28,7 +28,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = 'runes'
-    gem.summary = 'Elasticsearch Plugin'
+    gem.summary = 'Elasticsearch Railtie'
     gem.description = 'Add elasticsearch to Rails models.'
     gem.email = 'me@zan.st'
     gem.homepage = 'http://github.com/zanst/runes'

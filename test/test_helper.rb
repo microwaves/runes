@@ -16,3 +16,7 @@ def setup_db
 
   require File.dirname(__FILE__) + '/../lib/runes'
 end
+
+def setup_index
+  Runes::Janitor.setup!
+end

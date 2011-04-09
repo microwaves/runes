@@ -6,7 +6,7 @@ class RunesTest < ActiveSupport::TestCase
   class Product < ActiveRecord::Base
     acts_as_indexable
   end
-
+  
   def test_schema_has_loaded_correctly
     assert_equal [], Product.all
   end
