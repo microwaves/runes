@@ -2,7 +2,7 @@ module Runes
   module Base
     def self.set_actor(model)
       @actors ||= []
-      @actors << model.to_s
+      @actors << model
     end
 
     def self.actors
