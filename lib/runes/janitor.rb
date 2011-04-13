@@ -20,7 +20,7 @@ module Runes
         require 'socket'
         if @config.nil?
           # getting the longer line possible to avoid problems in different OSes.
-          process_status = system("ps auxwwww | grep org.elasticsearch.bootstrap | grep -v grep")
+          process_status = system("ps auxwwww | grep org.elasticsearch.bootstrap | grep -v grep >> /dev/null")
           return process_status
         else
           net_status = TCPSocket.open(@config['host'], @config['port'].to_i)
