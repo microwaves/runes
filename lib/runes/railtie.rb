@@ -3,15 +3,14 @@ require 'rails'
 
 module Runes
   class Railtie < Rails::Railtie
-    # Extends the module into active_record on app initialization.
-    #initializer 'runes.extend_active_record' do
-    initializer 'runes.extend.active_record', :before => 'runes.exec_models' do
+    # Extends module into active_record.
+    initializer 'runes.extend.active_record', :before => "active_record.initialize_timezone" do
       ActiveRecord::Base.send :extend, Runes::Orm::ActiveRecord
     end
-
-    # Temporary fix maybe?
-    initializer 'runes.exec_models', :after => :engines_blank_point do
-      ActiveRecord::Migrator.migrate(Rails.application.paths["db/migrate"].to_a, ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
+    
+    # Initialize models in order to perform the Runes function.
+    initializer 'runes.ref_models', :after => :engines_blank_point do
+      Dir.glob(RAILS_ROOT + '/app/models/*.rb').each { |file| require file }
     end
 
     # Verify and setup the actors defined by the user.
