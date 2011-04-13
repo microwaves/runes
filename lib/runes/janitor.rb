@@ -3,15 +3,19 @@ module Runes
     class << self
       def setup!
         if Runes::Janitor.es_is_running?
-          Runes::Base.actors.each do |actor|
-            $es_client.create_index(actor.to_s)
+          begin
+            Runes::Base.actors.each do |actor|
+              $es_client.create_index(actor.to_s)
+            end
+          rescue ElasticSearch::RequestError
+            return true
           end
         end
       end
 
       # This function was created because rubberband
-      # behaves strangely and doesn't inform the system
-      # properly when elasticsearch isn't running.
+      # behaves strangely and doesn't inform properly
+      # when elasticsearch isn't running.
       def es_is_running?
         require 'socket'
         if @config.nil?
