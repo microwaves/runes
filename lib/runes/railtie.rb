@@ -3,8 +3,15 @@ require 'rails'
 
 module Runes
   class Railtie < Rails::Railtie
+    # Check if elasticsearch is running.
+    initializer 'runes.check_es_status', :before => 'i18n.callbacks' do
+      if Runes::Janitor.es_is_running? == false
+        raise "Elasticsearch server is not running."
+      end
+    end
+
     # Extends module into active_record.
-    initializer 'runes.extend.active_record', :before => "active_record.initialize_timezone" do
+    initializer 'runes.extend.active_record', :before => 'active_record.initialize_timezone' do
       ActiveRecord::Base.send :extend, Runes::Orm::ActiveRecord
     end
     

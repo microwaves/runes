@@ -9,11 +9,13 @@ module Runes
 
   begin
     config_path = Rails.root.to_s + '/config/runes.yml'
-    config = YAML.load_file(config_path)
+    @config = YAML.load_file(config_path)
   rescue
-    config = nil
+    @config = nil
   end
 
-  $es_client = config.nil? ? ElasticSearch.new('127.0.0.1:9200') : ElasticSearch.new(config['host'], :timeout => 10)
+  if Runes::Janitor.es_is_running?
+    $es_client = @config.nil? ? ElasticSearch.new('127.0.0.1:9200') : ElasticSearch.new(@config['host'] + ':' + @config['port'])
+  end
 
 end
