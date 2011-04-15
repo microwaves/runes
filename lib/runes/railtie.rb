@@ -17,7 +17,7 @@ module Runes
     
     # Initialize models in order to perform the Runes function.
     initializer 'runes.ref_models', :after => :engines_blank_point do
-      Dir.glob(RAILS_ROOT + '/app/models/*.rb').each { |file| require file }
+      Dir.glob(Rails.root.to_s + '/app/models/*.rb').each { |file| require file }
     end
 
     # Verify and setup the actors defined by the user.
