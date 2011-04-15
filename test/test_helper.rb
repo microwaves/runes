@@ -2,6 +2,7 @@ require 'rubygems'
 require 'test/unit'
 require 'active_support'
 require 'active_record'
+require 'test_unit_extension'
 
 def setup_db
   ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
@@ -17,6 +18,4 @@ def setup_db
   require File.dirname(__FILE__) + '/../lib/runes'
 end
 
-def setup_index
-  Runes::Janitor.setup!
-end
+ActiveSupport::TestCase.send :extend, Test::Unit
