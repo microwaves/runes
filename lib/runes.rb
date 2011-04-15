@@ -15,7 +15,8 @@ module Runes
   end
 
   if Runes::Janitor.es_is_running?
-    $es_client = @config.nil? ? ElasticSearch.new('127.0.0.1:9200') : ElasticSearch.new(@config['host'] + ':' + @config['port'])
+    @server_host = @config.nil? ? '127.0.0.1:9200' : @config['host'] + ':' + @config['port']
+    $es_client = ElasticSearch.new(@server_host)
   end
 
 end
