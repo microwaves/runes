@@ -5,7 +5,7 @@ module Runes
         if Runes::Janitor.es_is_running?
           begin
             Runes::Base.actors.each do |actor|
-              $es_client.create_index(actor.to_s.underscore)
+              $es_client.create_index(actor.underscore)
             end
           rescue ElasticSearch::RequestError
             return true
