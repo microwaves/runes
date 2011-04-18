@@ -10,7 +10,7 @@ def setup_db
   ActiveRecord::Schema.define(:version => 0) do
     create_table :nuts, :force => true do |t|
       t.string :name
-      t.string :content
+      t.text :content
       t.datetime :created_at
     end
   end

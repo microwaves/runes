@@ -6,11 +6,12 @@ class RunesTest < ActiveSupport::TestCase
     ActiveRecord::Base.send :extend, Runes::Orm::ActiveRecord
   end
  
-  must "execute method" do
+  must "execute method and add object to index" do
     class Nut < ActiveRecord::Base
       acts_as_indexable
     end
-    assert_equal [], Nut.all
+    Nut.create!(:name => "nutixious", :content => "nuts do crackle")
+    assert_equal 1, Nut.all.count
   end
-  
+
 end
