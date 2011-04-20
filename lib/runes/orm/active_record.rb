@@ -1,24 +1,26 @@
 module Runes
   module Orm
     module ActiveRecord
+      attr_accessor :index_name
+      attr_accessor :type_name
+
       def acts_as_indexable(options={})
         send :include, InstanceMethods
-        Runes::Base.set_actor(self.class.name.underscore)
+        @index_name = self.name.underscore.gsub(/\//, '-').pluralize
+        @type_name = self.name.underscore.gsub(/\//, '-').singularize
+        Runes::Base.set_actor(@index_name)
         after_destroy :destroy_object_from_index
         after_save :add_object_to_index
       end
     end
 
     module InstanceMethods
-      def delete_index
-      end
-
       def destroy_object_from_index
+        $es_client.delete(self.id.to_s, :index => self.class.index_name, :type => self.class.type_name)
       end
 
       def add_object_to_index
-        @class_name = self.class.name.underscore.gsub(/\//, '-')
-        $es_client.index(self.to_json, :index => @class_name, :type => @class_name)
+        $es_client.index(self.to_json, :id => self.id, :index => self.class.index_name, :type => self.class.type_name)
       end
     end
   end
