@@ -10,9 +10,9 @@ module Runes
         @actors
       end
 
-      def indexes
+      def search(query)
+        $es_client.search(query)
       end
-      
     end
   end
 end

@@ -12,6 +12,12 @@ module Runes
         after_destroy :destroy_object_from_index
         after_save :add_object_to_index
       end
+
+      def search(query)
+        search = Runes::Base.search(query)
+        results = search.map{|result| result.ar_object}
+        return results
+      end
     end
 
     module InstanceMethods
