@@ -1,6 +1,6 @@
 module Runes
-  module RubberbandExt
-    def ar_object
+  module RubberbandExtension
+    def ar_equivalence
       model = _type.gsub(/-/,'/').classify.constantize
       begin
         model.find(id) 

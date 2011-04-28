@@ -15,7 +15,7 @@ module Runes
 
       def search(query)
         search = Runes::Base.search(query, @index_name)
-        results = search.map{|result| result.ar_object}
+        results = search.map{|result| result.ar_equivalence}
         return results.sort_by(&:created_at)
       end
     end

@@ -12,7 +12,7 @@ module Runes
 
     # Include module into Rubberband's ElasticSearch::Api::Hit
     initializer 'runes.include.rubberband', :before => 'active_record.initialize_timezone' do
-      ElasticSearch::Api::Hit.send :include, Runes::RubberbandExt
+      ElasticSearch::Api::Hit.send :include, Runes::RubberbandExtension
     end
 
     # Extends module into active_record.
