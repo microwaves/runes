@@ -19,7 +19,7 @@ module Runes
       def es_is_running?
         require 'socket'
         if @config.nil?
-          # getting the longer line possible to avoid problems in different OSes.
+          # getting the longer line possible to avoid problems in different operating systems.
           process_status = system("ps auxwwww | grep org.elasticsearch.bootstrap | grep -v grep >> /dev/null")
           return process_status
         else
