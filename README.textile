@@ -16,14 +16,14 @@ Install the latest gem in the conventional manner:
 
 Specify the models you want to index:
 
-@class Cake < ActiveRecord::Base
-  acts_as_indexable
-end@
+@class Cake < ActiveRecord::Base@
+@  acts_as_indexable@
+@end@
 
 After you have installed Runes and specified the models just fire your Rails app. Voila! You are able to index your objects.
 
-@Cake.create!(:name => "chocolate", :category => "fatty")
-Cake.search("chocolate")@
+@Cake.create!(:name => "chocolate", :category => "fatty")@
+@Cake.search("chocolate")@
 
 h3. Author
 
