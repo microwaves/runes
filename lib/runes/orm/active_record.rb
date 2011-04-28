@@ -26,7 +26,12 @@ module Runes
       end
 
       def add_object_to_index
-        $es_client.index(self.to_json, :id => self.id, :index => self.class.index_name, :type => self.class.type_name)
+        begin
+          destroy_object_from_index
+          $es_client.index(self.to_json, :id => self.id, :index => self.class.index_name, :type => self.class.type_name)
+        rescue
+          $es_client.index(self.to_json, :id => self.id, :index => self.class.index_name, :type => self.class.type_name)
+        end
       end
     end
   end
